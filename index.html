@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astro Numerology Blueprint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="intro">
+      <canvas id="skyCanvas" aria-hidden="true"></canvas>
+      <div class="intro-copy">
+        <p class="eyebrow">Astrology + Numerology</p>
+        <h1>Birth Blueprint</h1>
+        <p class="lede">Enter birth details to generate Mulank, Bhagyank, planetary houses, and a reading across love, career, success, money, health, and personality.</p>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Astrology birth chart generator">
+      <form id="astroForm" class="panel input-panel">
+        <div class="panel-heading">
+          <span class="orbital-mark">☉</span>
+          <div>
+            <h2>Your Details</h2>
+            <p>Use coordinates when you know them. Otherwise choose a city or type your place.</p>
+          </div>
+        </div>
+
+        <label>
+          <span>Full name</span>
+          <input id="fullName" name="fullName" type="text" placeholder="e.g. Ananya Sharma" autocomplete="name" required>
+        </label>
+
+        <div class="field-grid">
+          <label>
+            <span>Date of birth</span>
+            <input id="birthDate" name="birthDate" type="date" required>
+          </label>
+          <label>
+            <span>Time of birth</span>
+            <input id="birthTime" name="birthTime" type="time" required>
+          </label>
+        </div>
+
+        <label>
+          <span>Area / city of birth</span>
+          <input id="birthPlace" name="birthPlace" type="text" list="cityList" placeholder="e.g. Delhi, India" required>
+          <datalist id="cityList"></datalist>
+        </label>
+
+        <div class="field-grid three">
+          <label>
+            <span>Latitude</span>
+            <input id="latitude" name="latitude" type="number" step="0.0001" min="-66" max="66" placeholder="28.6139">
+          </label>
+          <label>
+            <span>Longitude</span>
+            <input id="longitude" name="longitude" type="number" step="0.0001" min="-180" max="180" placeholder="77.2090">
+          </label>
+          <label>
+            <span>UTC offset</span>
+            <input id="timezone" name="timezone" type="number" step="0.25" min="-12" max="14" value="5.5">
+          </label>
+        </div>
+
+        <div class="action-row">
+          <button type="submit">Generate Reading</button>
+          <button type="button" id="sampleBtn" class="ghost-button">Try Sample</button>
+        </div>
+      </form>
+
+      <section id="results" class="results" aria-live="polite">
+        <div class="empty-state panel">
+          <div class="empty-visual">☾</div>
+          <h2>Your cosmic report appears here</h2>
+          <p>Fill the form to map numbers, signs, planets, houses, strengths, and practical guidance.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <template id="reportTemplate">
+    <article class="report">
+      <section class="panel hero-report">
+        <div>
+          <p class="eyebrow report-kicker"></p>
+          <h2 class="report-name"></h2>
+          <p class="report-summary"></p>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chartCanvas" width="360" height="360" aria-label="Astrology chart wheel"></canvas>
+        </div>
+      </section>
+
+      <section class="metric-grid"></section>
+
+      <section class="panel">
+        <div class="section-title">
+          <span>♆</span>
+          <h3>Planets In Houses</h3>
+        </div>
+        <div class="planet-table"></div>
+      </section>
+
+      <section class="reading-grid"></section>
+
+      <section class="panel note-panel">
+        <h3>Reading Note</h3>
+        <p>This app uses simplified astronomical estimates and an equal-house system for self-reflection and entertainment. Professional astrology software uses high-precision ephemerides and exact geocoding.</p>
+      </section>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Birth Blueprint - Astro Numerology Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="intro">
+      <canvas id="skyCanvas" aria-hidden="true"></canvas>
+      <div class="intro-copy">
+        <p class="eyebrow">Your Cosmic Blueprint</p>
+        <h1>Birth Reading</h1>
+        <p class="lede">Your personalized astrology and numerology report based on your birth details.</p>
+      </div>
+    </section>
+
+    <section class="workspace-full" aria-label="Astrology birth chart report">
+      <div id="reportContainer" class="report-container">
+        <div class="loading-state panel">
+          <div class="empty-visual">☾</div>
+          <h2>Loading your cosmic report...</h2>
+          <p>Please wait while we calculate your birth blueprint.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="result.js"></script>
+</body>
+</html>

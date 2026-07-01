@@ -1,4 +1,4 @@
-const form = document.querySelector("#astroForm");
+  const form = document.querySelector("#astroForm");
 const results = document.querySelector("#results");
 const template = document.querySelector("#reportTemplate");
 const sampleBtn = document.querySelector("#sampleBtn");
@@ -530,5 +530,10 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = readForm();
   const report = buildReport(data);
-  renderReport(report);
+  
+  // Store report data in sessionStorage
+  sessionStorage.setItem('astroReport', JSON.stringify(report));
+  
+  // Redirect to result page
+  window.location.href = 'result.html';
 });

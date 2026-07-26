@@ -1,0 +1,21 @@
+{
+  "name": "Astro Numerology Blueprint",
+  "short_name": "Blueprint",
+  "description": "Professional interactive astrology and numerology web application.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

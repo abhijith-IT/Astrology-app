@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /result.html
+
+Sitemap: https://astro-numerology-blueprint.app/sitemap.xml

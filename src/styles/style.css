@@ -789,3 +789,187 @@ main > .intro .intro-copy {
     font-size: 0.9rem;
   }
 }
+
+
+/* ========================================================================= */
+/* LUXURY EDITORIAL REPORT REDESIGN */
+/* ========================================================================= */
+
+/* Minimal Report Header */
+.report-header {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #fffdf8;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.report-header-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.report-header .main-title {
+  font-size: 2.2rem;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  font-family: 'Cinzel', serif;
+  background: none;
+  -webkit-text-fill-color: var(--ink);
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+}
+
+.report-header .sub-title {
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+}
+
+/* Seamless Report Body Blending */
+.workspace-full {
+  margin-top: 0;
+  padding: 0;
+  background: #fffdf8;
+}
+
+.workspace-full .report {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* User Info Section (formerly dashboard hero) */
+.workspace-full .hero-report {
+  border: none;
+  background: transparent;
+  box-shadow: none !important;
+  border-radius: 0;
+  padding: 30px 20px 20px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: center;
+}
+
+.workspace-full .hero-report > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.workspace-full .report-kicker {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.workspace-full .report-name {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+  color: #1c2530;
+  background: none;
+  -webkit-text-fill-color: #1c2530;
+}
+
+.workspace-full .report-summary {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4b5563;
+  font-weight: 300;
+}
+
+/* Chart Positioning */
+.workspace-full .chart-wrap {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* Metric Cards - Editorial Style */
+.workspace-full .metric-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.workspace-full .metric-grid .metric {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 0;
+  box-shadow: none !important;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.workspace-full .metric-grid .metric span {
+  color: #64748b;
+  letter-spacing: 0.1em;
+}
+
+.workspace-full .metric-grid .metric strong {
+  color: #0f172a;
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin: 12px 0 8px;
+}
+
+.workspace-full .metric-grid .metric p {
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+/* Responsive tweaks for luxury layout */
+@media (max-width: 768px) {
+  .workspace-full .report-name {
+    font-size: 2.8rem;
+  }
+  .workspace-full .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .report-header {
+    height: 110px;
+  }
+  .report-header .main-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Print Overrides */
+@media print {
+  .report-header {
+    background: #fff !important;
+    color: #000 !important;
+    border-bottom: 1px solid #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .report-header .main-title {
+    color: #000 !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+  .report-header .sub-title {
+    color: #666 !important;
+  }
+  .workspace-full .hero-report {
+    padding: 20px 0 !important;
+    gap: 20px !important;
+  }
+}
+

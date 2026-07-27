@@ -1,4 +1,4 @@
-import './styles/style.css';
+import './styles/main.css';
 
 import { initializeBackground } from './ui/background.js';
 import './ui/ui.js';

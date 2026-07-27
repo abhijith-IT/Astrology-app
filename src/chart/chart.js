@@ -58,7 +58,18 @@ export function renderInteractiveChart(container, report, options = {}) {
   svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
   svg.setAttribute("class", "interactive-chart-svg");
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Interactive astrological birth chart");
+  svg.setAttribute("aria-label", "Astrological birth chart");
+  svg.setAttribute("shape-rendering", "geometricPrecision");
+  svg.setAttribute("text-rendering", "optimizeLegibility");
+  
+  const title = document.createElementNS(SVG_NS, "title");
+  title.textContent = `Astrological Chart for ${report.fullName || "User"}`;
+  svg.appendChild(title);
+  
+  const desc = document.createElementNS(SVG_NS, "desc");
+  desc.textContent = `Astrology chart displaying a ${report.dominant.topElement}-heavy signature with ${report.ascSign.name} rising.`;
+  svg.appendChild(desc);
+  
   if (!config.animate) {
     svg.style.animation = "none";
   }

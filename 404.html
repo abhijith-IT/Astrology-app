@@ -18,14 +18,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cinzel:wght@500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="shell" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
-    <section class="intro">
-      <div class="intro-copy">
-        <p class="eyebrow">Error 404</p>
-        <h1>Lost in the Cosmos</h1>
-        <p class="lede">We couldn't find the page you were looking for.</p>
+  <main class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
+    <section class="flex flex-col items-center justify-center animate-fade-in">
+      <div style="max-width: 600px; padding: var(--space-8);">
+        <p class="text-caption text-primary mb-4" style="letter-spacing: 0.1em; text-transform: uppercase;">Error 404</p>
+        <h1 class="text-display mb-6 font-serif">Lost in the Cosmos</h1>
+        <p class="text-body text-secondary mb-8">We couldn't find the page you were looking for.</p>
         <div style="margin-top: 2rem;">
-          <a href="/" class="btn-primary">Return to Earth (Home)</a>
+          <a href="/" class="btn btn-primary">Return to Earth (Home)</a>
         </div>
       </div>
     </section>

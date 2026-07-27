@@ -7,142 +7,108 @@
   
   <!-- SEO & Metadata -->
   <meta name="description" content="Your personalized astrology and numerology report based on your birth details.">
-  <meta name="keywords" content="astrology, numerology, birth chart, zodiac, report, birth blueprint">
-  <meta name="author" content="Astro Numerology Blueprint">
   <link rel="canonical" href="https://astro-numerology-blueprint.app/result.html">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#050507">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://astro-numerology-blueprint.app/result.html">
-  <meta property="og:title" content="Your Birth Blueprint - Astro Numerology Report">
-  <meta property="og:description" content="Your personalized astrology and numerology report based on your birth details.">
-  <meta property="og:image" content="https://astro-numerology-blueprint.app/og-image.png">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://astro-numerology-blueprint.app/result.html">
-  <meta property="twitter:title" content="Your Birth Blueprint - Astro Numerology Report">
-  <meta property="twitter:description" content="Your personalized astrology and numerology report based on your birth details.">
-  <meta property="twitter:image" content="https://astro-numerology-blueprint.app/og-image.png">
-
-  <!-- Favicons & Manifest -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/manifest.webmanifest">
-
-  <!-- Security Policies -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self';">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cinzel:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-  <canvas id="cosmicBg" class="cosmic-bg"></canvas>
-  <main>
-    <header class="report-header">
-      <div class="report-header-content">
-        <h1 class="main-title">YOUR COSMIC<br>BLUEPRINT</h1>
-        <p class="sub-title">Birth Reading</p>
-      </div>
-    </header>
+<body class="bg-grain" style="margin: 0; padding: 0; overflow-x: hidden;">
+  <!-- Sky Canvas for ambient background (z-index -1) -->
+  <canvas id="cosmicBg" aria-hidden="true" style="position: fixed; inset: 0; z-index: -1; width: 100vw; height: 100vh; pointer-events: none; opacity: 0.15;"></canvas>
 
-    <section class="workspace-full" aria-label="Astrology birth chart report">
-      <div id="reportContainer" class="report-container">
-        
-        <div class="loading-engine panel glass-panel">
-          <div class="engine-header">
-            <span class="engine-icon">✨</span>
-            <h2 class="gradient-text">Preparing Birth Blueprint</h2>
-          </div>
-          
-          <div class="engine-steps" id="engineSteps">
-            <div class="engine-step" id="step1">
-              <span class="step-icon">☉</span>
-              <div class="step-content">
-                <p>Calculating planetary positions...</p>
-                <div class="step-progress"><div class="step-fill"></div></div>
-              </div>
-            </div>
-            <div class="engine-step" id="step2">
-              <span class="step-icon">☾</span>
-              <div class="step-content">
-                <p>Computing numerology...</p>
-                <div class="step-progress"><div class="step-fill"></div></div>
-              </div>
-            </div>
-            <div class="engine-step" id="step3">
-              <span class="step-icon">♄</span>
-              <div class="step-content">
-                <p>Determining life path...</p>
-                <div class="step-progress"><div class="step-fill"></div></div>
-              </div>
-            </div>
-            <div class="engine-step" id="step4">
-              <span class="step-icon">✦</span>
-              <div class="step-content">
-                <p>Generating personalized insights...</p>
-                <div class="step-progress"><div class="step-fill"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+  <main class="container flow-section animate-fade-in" style="min-height: 100vh; display: flex; flex-direction: column;">
+    <!-- Phase 4: The Threshold (Loading Engine) -->
+    <div id="loadingEngine" class="loading-engine flex-col items-center justify-center text-center" style="position: fixed; inset: 0; background: var(--color-bg-base); z-index: 50; display: flex;">
+      <div id="engineSteps" style="max-width: 400px; width: 100%;">
+        <!-- Dynamic loading text injected by loading.js -->
       </div>
-    </section>
+    </div>
+
+    <!-- The Revelation (Results Container) -->
+    <div id="reportContainer" class="report-container">
+      <!-- Report injected here by result.js -->
+    </div>
   </main>
 
-  <!-- Interactive Side Panel -->
+  <!-- Interactive Side Panel — Editorial Language -->
   <div class="planet-panel-overlay" id="planetPanelOverlay"></div>
-  <aside class="planet-panel glass-panel" id="planetPanel" aria-hidden="true">
-    <button class="panel-close" id="ppClose" aria-label="Close panel">✕</button>
-    <div class="panel-planet-header">
-      <div class="panel-planet-glyph" id="ppGlyph">☉</div>
-      <div class="panel-planet-title">
-        <h3 id="ppName">Sun</h3>
-        <p id="ppSubtitle">Leo • 10th House</p>
+  <aside id="planetPanel" aria-hidden="true" style="
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 400px;
+    max-width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto;
+    background-color: var(--color-bg-base);
+    border-left: 1px solid var(--color-border-strong);
+    padding: var(--space-8) var(--space-6);
+    transform: translateX(100%);
+    transition: transform var(--duration-spring) var(--ease-spring);
+  ">
+    <!-- Close -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: var(--space-8);">
+      <button id="ppClose" aria-label="Close panel" style="
+        background: none; border: none; cursor: pointer;
+        color: var(--color-text-muted); font-size: 1.2rem;
+        padding: var(--space-2);
+        min-height: 44px; min-width: 44px;
+        display: flex; align-items: center; justify-content: center;
+      ">✕</button>
+    </div>
+
+    <!-- Planet Identity -->
+    <div style="text-align: center; margin-bottom: var(--space-8);">
+      <div id="ppGlyph" class="font-serif" style="font-size: 3rem; color: var(--color-primary); margin-bottom: var(--space-2);">☉</div>
+      <h3 id="ppName" class="font-serif" style="font-size: var(--text-h2); letter-spacing: 0.1em; margin: 0;">Sun</h3>
+      <p id="ppSubtitle" class="text-caption text-muted" style="margin-top: var(--space-2);">Leo • 10th House</p>
+    </div>
+
+    <div style="border-top: 1px solid var(--color-border-strong); margin-bottom: var(--space-8);"></div>
+
+    <!-- Sections as editorial entries -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-8);">
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">CORE MEANING</span>
+        <p id="ppCore" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
+      </div>
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">PERSONALITY</span>
+        <p id="ppPersonality" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
+      </div>
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">CAREER & AMBITION</span>
+        <p id="ppCareer" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
+      </div>
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">RELATIONSHIPS</span>
+        <p id="ppLove" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
+      </div>
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">HEALTH & VITALITY</span>
+        <p id="ppHealth" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
+      </div>
+      <div>
+        <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-2);">PRACTICAL ADVICE</span>
+        <p id="ppAdvice" class="text-body text-secondary" style="line-height: 1.8; margin: 0;"></p>
       </div>
     </div>
-    
-    <div class="panel-card">
-      <h4><span class="icon">✨</span> Core Meaning</h4>
-      <p id="ppCore">The planet of soul, father, confidence, leadership.</p>
-    </div>
 
-    <div class="panel-card">
-      <h4><span class="icon">👤</span> Personality</h4>
-      <p id="ppPersonality">...</p>
-    </div>
-
-    <div class="panel-card">
-      <h4><span class="icon">💼</span> Career & Ambition</h4>
-      <p id="ppCareer">...</p>
-    </div>
-
-    <div class="panel-card">
-      <h4><span class="icon">❤️</span> Relationships</h4>
-      <p id="ppLove">...</p>
-    </div>
-
-    <div class="panel-card">
-      <h4><span class="icon">🩺</span> Health & Vitality</h4>
-      <p id="ppHealth">...</p>
-    </div>
-
-    <div class="panel-card">
-      <h4><span class="icon">💡</span> Practical Advice</h4>
-      <p id="ppAdvice">...</p>
-    </div>
-    
-    <div class="panel-card strength-card">
-      <h4><span class="icon">🔥</span> Influence Strength</h4>
-      <div class="strength-bar-bg">
-        <div class="strength-bar-fill" id="ppStrengthBar" style="width: 50%;"></div>
+    <!-- Influence Strength — editorial bar -->
+    <div style="border-top: 1px solid var(--color-border-subtle); margin-top: var(--space-8); padding-top: var(--space-6);">
+      <span class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); display: block; margin-bottom: var(--space-3);">INFLUENCE STRENGTH</span>
+      <div style="width: 100%; height: 2px; background: var(--color-border-subtle); margin-bottom: var(--space-2);">
+        <div id="ppStrengthBar" style="height: 100%; background: var(--color-primary); width: 0%; transition: width var(--duration-spring) var(--ease-spring);"></div>
       </div>
-      <p class="strength-text" id="ppStrengthText">50%</p>
+      <p class="text-mono text-muted" id="ppStrengthText" style="font-size: var(--text-caption); margin: 0;">0%</p>
     </div>
   </aside>
 

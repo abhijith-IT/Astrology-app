@@ -13,26 +13,17 @@ export function runLoadingSequence(onComplete) {
   const engineStepsContainer = document.getElementById('engineSteps');
   
   if (!loadingEngine || !engineStepsContainer) {
-    // Fallback if UI is missing
     setTimeout(onComplete, 500);
     return;
   }
 
-  // Clear existing static steps and replace with dynamic single progress
   engineStepsContainer.innerHTML = `
-    <div class="engine-step active" id="dynamicStep">
-      <span class="step-icon">✨</span>
-      <div class="step-content">
-        <p id="dynamicStepText">Starting engine...</p>
-        <div class="step-progress"><div class="step-fill" id="dynamicStepFill"></div></div>
-      </div>
-      <div class="progress-percent" id="dynamicStepPercent" style="font-family: var(--font-cinzel); color: var(--accent-cyan); width: 40px; text-align: right; font-weight: bold;">0%</div>
+    <div class="flex flex-col items-center justify-center animate-fade-in" style="height: 100vh;">
+      <div id="dynamicStepText" class="text-mono text-secondary" style="font-size: var(--text-body-sm); letter-spacing: 0.05em; text-transform: uppercase;">Initializing celestial engine...</div>
     </div>
   `;
 
-  const stepFill = document.getElementById('dynamicStepFill');
   const stepText = document.getElementById('dynamicStepText');
-  const stepPercent = document.getElementById('dynamicStepPercent');
   
   let currentProgress = 0;
   let stepIndex = 0;
@@ -42,30 +33,41 @@ export function runLoadingSequence(onComplete) {
   }
 
   let startTime = null;
-  const duration = 2200; // Total 2.2s animation
+  const duration = 2200;
 
   function animate(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsed = timestamp - startTime;
     const rawProgress = Math.min(elapsed / duration, 1);
     
-    // Non-linear easing so it slows at the end
     currentProgress = easeOutCubic(rawProgress) * 100;
     
-    // Update UI
-    stepFill.style.width = `${currentProgress}%`;
-    stepPercent.innerText = `${Math.floor(currentProgress)}%`;
-
-    // Update text based on targets
-    if (stepIndex < steps.length && currentProgress >= steps[stepIndex].target) {
-      stepText.innerText = steps[stepIndex].text;
+    while (stepIndex < steps.length - 1 && currentProgress >= steps[stepIndex].target) {
       stepIndex++;
+      if (stepText) stepText.textContent = steps[stepIndex].text;
     }
 
-    if (rawProgress < 1) {
+    if (currentProgress < 100) {
       requestAnimationFrame(animate);
     } else {
-      setTimeout(onComplete, 300);
+      if (stepText) stepText.textContent = "Blueprint ready.";
+      
+      // Fade out loading, fade in report — using CSS classes
+      setTimeout(() => {
+        if (loadingEngine) {
+          loadingEngine.classList.add('is-complete');
+        }
+        
+        setTimeout(() => {
+          if (loadingEngine) loadingEngine.style.display = 'none';
+          
+          const reportContainer = document.getElementById('reportContainer');
+          if (reportContainer) {
+            reportContainer.classList.add('is-visible');
+          }
+          onComplete();
+        }, 800);
+      }, 500);
     }
   }
 

@@ -1,0 +1,187 @@
+/* ==========================================================================
+   Editorial Reading Experience
+   ========================================================================== */
+
+/* The central reading column */
+.editorial-container {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  width: 100%;
+}
+
+/* Serif Typography */
+.font-serif {
+  font-family: 'Cinzel', serif;
+}
+
+/* Drop Caps for body paragraphs */
+.drop-cap > p:first-of-type::first-letter {
+  float: left;
+  font-family: 'Cinzel', serif;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: var(--space-3);
+  padding-top: var(--space-2);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Chapter Dividers */
+.chapter-divider {
+  width: 100%;
+  border-top: 1px solid var(--color-border-strong);
+  margin: var(--space-12) 0 var(--space-8);
+  position: relative;
+}
+
+.chapter-divider::after {
+  content: "✧ ✦ ✧";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-base);
+  padding: 0 var(--space-4);
+  color: var(--color-primary);
+  font-size: 18px;
+  letter-spacing: 0.4em;
+}
+
+/* Recommendation Boxes */
+.recommendation-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border-subtle);
+  padding: var(--space-6);
+  border-radius: 4px;
+  margin-top: var(--space-6);
+  text-align: left;
+}
+.recommendation-box.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.recommendation-box-title {
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* Print Rules */
+@media print {
+  section, .chapter-header, .recommendation-box, .ledger-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  display: block;
+  text-align: center;
+  padding: var(--space-4);
+  background: var(--color-bg-elevated);
+  color: var(--color-primary);
+  text-decoration: none;
+  z-index: 100;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Ledger Style Lists (for planets/data) */
+ul.ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-12);
+  list-style: none;
+  padding: 0;
+}
+
+.ledger-row {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  color: var(--color-text-primary);
+  padding: var(--space-2) 0;
+}
+
+.ledger-leader {
+  flex-grow: 1;
+  border-bottom: 1px dotted var(--color-border-strong);
+  margin: 0 var(--space-3);
+  opacity: 0.5;
+}
+
+.ledger-value {
+  text-align: right;
+  min-width: 120px;
+}
+
+/* Chapter Headers */
+.chapter-header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.chapter-number {
+  font-family: 'Cinzel', serif;
+  font-size: var(--text-h4);
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-2);
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Hero Metrics Grid */
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 600px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .metric-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

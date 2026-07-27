@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Cards - V2 (Volumetric & Spring)
+   ========================================================================== */
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--inset-normal);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  
+  /* Spring physics for lift */
+  transition: transform var(--duration-spring) var(--ease-spring),
+              box-shadow var(--duration-snap) var(--ease-out),
+              border-color var(--duration-snap) var(--ease-out);
+}
+
+/* Glass Card - Award Winning Volumetric */
+.card-glass {
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(24px); /* Heavier blur for realism */
+  -webkit-backdrop-filter: blur(24px);
+  
+  /* Gradient border to simulate top-left lighting */
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--color-surface-glass), var(--color-surface-glass)), 
+                    linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  
+  border-radius: var(--radius-lg);
+  padding: var(--inset-normal);
+  
+  /* Ambient glowing shadow + harsh inner highlight */
+  box-shadow: var(--shadow-md), var(--shadow-ambient);
+}
+
+/* Feature Card */
+.card-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--inset-loose);
+}
+
+.card-feature .card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  /* Inner glass look for the icon wrapper */
+  background: linear-gradient(135deg, rgba(94, 106, 210, 0.15) 0%, rgba(94, 106, 210, 0.05) 100%);
+  border: 1px solid rgba(94, 106, 210, 0.2);
+  color: var(--color-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.card-feature .card-title {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.card-feature .card-body {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-loose);
+}
+
+/* Metric Card - utilizing Monospace data font */
+.card-metric {
+  padding: var(--inset-squish);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.card-metric .metric-label {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.card-metric .metric-value {
+  /* Using clamp() from text-h2 and tabular monospace */
+  font-size: var(--text-h2);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.05em; /* Tighter for large numbers */
+}
+
+/* Interactive States */
+.card-interactive:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-floating), var(--shadow-ambient);
+  border-color: var(--color-border-strong);
+}
+
+.card-interactive:active {
+  transform: translateY(1px) scale(0.99);
+  transition-duration: var(--duration-snap); /* Quick snap down */
+}
+
+
+/* Legacy Panels & Empty States */
+.panel { border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-soft); backdrop-filter: blur(10px); }
+.empty-state { display: grid; min-height: 420px; place-items: center; padding: var(--space-10); text-align: center; }
+.empty-visual { display: grid; width: 120px; height: 120px; place-items: center; margin-bottom: var(--space-6); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 50%; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%); font-size: 3.8rem; }

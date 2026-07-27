@@ -1,4 +1,4 @@
-﻿export const TAU = Math.PI * 2;
+export const TAU = Math.PI * 2;
 export const DEG = Math.PI / 180;
 export const J2000 = 2451545;
 
@@ -48,15 +48,15 @@ export const planetInfo = {
 };
 
 export const numberMeanings = {
-  1: { ruler: "Sun", text: "leadership, visibility, independence, and strong will" },
-  2: { ruler: "Moon", text: "sensitivity, diplomacy, emotional intelligence, and partnership" },
-  3: { ruler: "Jupiter", text: "learning, expression, optimism, and creative growth" },
-  4: { ruler: "Rahu", text: "unusual thinking, systems, reinvention, and practical disruption" },
-  5: { ruler: "Mercury", text: "communication, trade, travel, flexibility, and sharp decisions" },
-  6: { ruler: "Venus", text: "love, comfort, beauty, responsibility, and relationship karma" },
-  7: { ruler: "Ketu", text: "research, spirituality, solitude, analysis, and hidden wisdom" },
-  8: { ruler: "Saturn", text: "discipline, authority, endurance, money lessons, and maturity" },
-  9: { ruler: "Mars", text: "courage, action, protection, passion, and completion" }
+  1: { title: "The Leader", ruler: "Sun", text: "leadership, visibility, independence, and strong will" },
+  2: { title: "The Diplomat", ruler: "Moon", text: "sensitivity, diplomacy, emotional intelligence, and partnership" },
+  3: { title: "The Creator", ruler: "Jupiter", text: "learning, expression, optimism, and creative growth" },
+  4: { title: "The Builder", ruler: "Rahu", text: "unusual thinking, systems, reinvention, and practical disruption" },
+  5: { title: "The Explorer", ruler: "Mercury", text: "communication, trade, travel, flexibility, and sharp decisions" },
+  6: { title: "The Nurturer", ruler: "Venus", text: "love, comfort, beauty, responsibility, and relationship karma" },
+  7: { title: "The Seeker", ruler: "Ketu", text: "research, spirituality, solitude, analysis, and hidden wisdom" },
+  8: { title: "The Executive", ruler: "Saturn", text: "discipline, authority, endurance, money lessons, and maturity" },
+  9: { title: "The Catalyst", ruler: "Mars", text: "courage, action, protection, passion, and completion" }
 };
 
 export const cityPresets = [

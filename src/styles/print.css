@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Print Styles (Phase 6: The Keepsake)
+   ========================================================================== */
+
+@media print {
+  /* 1. Fix Opacity & Animation Freeze Bug (Targeted) */
+  main,
+  .report-container,
+  .editorial-container,
+  .animate-fade-in {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* 2. Fix CSS Variable Colors (White-on-White bug) */
+  :root {
+    --color-text-primary: #000000 !important;
+    --color-text-secondary: #333333 !important;
+    --color-text-muted: #666666 !important;
+    --color-primary: #000000 !important;
+    --color-bg-base: #FFFFFF !important;
+    --color-border-strong: #cccccc !important;
+    --color-border-subtle: #eeeeee !important;
+  }
+
+  /* Hide UI elements and backgrounds */
+  canvas,
+  .btn,
+  .planet-panel,
+  .planet-panel-overlay,
+  .loading-engine,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  /* Reset body for physical paper */
+  body, 
+  .bg-grain {
+    background: white !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove Glassmorphism */
+  .card,
+  .card-glass,
+  .card-feature,
+  .card-metric {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Typography Inversion */
+  .text-primary,
+  .text-secondary,
+  .text-muted,
+  .text-display,
+  .text-h1,
+  .text-h2,
+  .text-h3,
+  .text-h4,
+  .text-body,
+  .text-body-sm,
+  .text-caption,
+  .text-mono {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  /* Structural Adjustments */
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  .grid > * {
+    margin-bottom: 1.5rem !important;
+    page-break-inside: avoid;
+  }
+
+  /* Layout tweaks for printed metrics */
+  .card-metric {
+    border-left: 2px solid black !important;
+    padding-left: 1rem !important;
+    border-radius: 0 !important;
+  }
+
+  /* Planets in Houses */
+  .planet-row,
+  .flex.items-center.p-inset-squish {
+    border: none !important;
+    border-bottom: 1px solid #ccc !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    page-break-inside: avoid;
+    padding: 1rem 0 !important;
+  }
+
+  .card-icon {
+    border: none !important;
+    background: transparent !important;
+    color: black !important;
+  }
+
+  /* Print specific utilities */
+  @page {
+    margin: 2cm;
+    size: A4 portrait;
+  }
+
+  h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+  p {
+    page-break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+}

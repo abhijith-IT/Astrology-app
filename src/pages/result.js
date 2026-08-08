@@ -15,7 +15,7 @@ function renderReport(report) {
     <main class="editorial-container" style="width: 100%;">
       
       <!-- HERO VIEWPORT (Sprint 2: Majestic Linear Flow) -->
-      <header aria-label="Hero Introduction" style="display: flex; flex-direction: column; align-items: center; padding-top: var(--space-8); padding-bottom: var(--space-12);">
+      <header class="hero-container" aria-label="Hero Introduction" style="display: flex; flex-direction: column; align-items: center; padding-top: var(--space-8); padding-bottom: var(--space-12);">
         
         <!-- TITLE -->
         <div class="animate-slide-up stagger-in" style="--stagger-step: 1; text-align: center; margin-bottom: var(--space-6);">
@@ -86,7 +86,7 @@ function renderReport(report) {
 
       <!-- CHAPTER I : NUMEROLOGICAL FOUNDATION -->
       <div class="chapter-divider" aria-hidden="true" style="margin-top: var(--space-8);"></div>
-      <section class="scroll-reveal" aria-labelledby="chapter-1-title" style="margin-bottom: var(--space-20);">
+      <section class="scroll-reveal chapter-container" aria-labelledby="chapter-1-title" style="margin-bottom: var(--space-20);">
         <div class="chapter-header" style="margin-bottom: var(--space-12);">
           <p class="chapter-number">I</p>
           <h2 id="chapter-1-title" class="chapter-title">Numerological Foundation</h2>
@@ -100,7 +100,7 @@ function renderReport(report) {
           </div>
           
           <!-- Right: Narrative -->
-          <div>
+          <div class="reading-width">
             <p class="text-caption text-secondary m-0" style="letter-spacing: 0.1em; margin-bottom: var(--space-6);">
               Before the stars align, your foundational numbers establish your innate temperament.
             </p>
@@ -121,7 +121,7 @@ function renderReport(report) {
 
       <!-- CHAPTER II : CELESTIAL ARCHITECTURE -->
       <div class="chapter-divider" aria-hidden="true"></div>
-      <section class="scroll-reveal" aria-labelledby="chapter-2-title" style="margin-bottom: var(--space-20);">
+      <section class="scroll-reveal chapter-container" aria-labelledby="chapter-2-title" style="margin-bottom: var(--space-20);">
         <div class="chapter-header" style="margin-bottom: var(--space-12);">
           <p class="chapter-number">II</p>
           <h2 id="chapter-2-title" class="chapter-title">Celestial Architecture</h2>
@@ -161,7 +161,7 @@ function renderReport(report) {
 
       <!-- CHAPTER III : THE SYNTHESIS -->
       <div class="chapter-divider" aria-hidden="true"></div>
-      <section class="scroll-reveal" aria-labelledby="chapter-3-title" style="margin-bottom: var(--space-12);">
+      <section class="scroll-reveal chapter-container" aria-labelledby="chapter-3-title" style="margin-bottom: var(--space-12);">
         <div class="chapter-header" style="margin-bottom: var(--space-12);">
           <p class="chapter-number">III</p>
           <h2 id="chapter-3-title" class="chapter-title">The Synthesis</h2>
@@ -180,7 +180,7 @@ function renderReport(report) {
               <div style="display: flex; flex-direction: column; align-items: ${isEven ? 'flex-end' : 'flex-start'}; text-align: ${isEven ? 'right' : 'left'};">
                 <div style="max-width: 85%; ${isEven ? 'border-right: 2px solid var(--color-primary); padding-right: var(--space-6);' : 'border-left: 2px solid var(--color-primary); padding-left: var(--space-6);'}">
                   <h3 class="text-caption" style="letter-spacing: 0.15em; color: var(--color-primary); margin-top: 0; margin-bottom: var(--space-3); text-transform: uppercase;">${item.title}</h3>
-                  <div class="drop-cap" style="${isEven ? 'text-align: right;' : 'text-align: left;'}">
+                  <div class="drop-cap reading-width" style="display: inline-block; ${isEven ? 'text-align: right;' : 'text-align: left;'}">
                     <p class="text-body text-secondary" style="line-height: 1.8; font-size: 1.1rem; margin: 0;">${item.body}</p>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ function renderReport(report) {
 
       <!-- READING NOTE -->
       <div class="chapter-divider" aria-hidden="true"></div>
-      <section class="scroll-reveal" aria-label="Reading Note" style="margin-bottom: var(--space-8); padding-top: var(--space-4);">
+      <section class="scroll-reveal reading-width center" aria-label="Reading Note" style="margin-bottom: var(--space-8); padding-top: var(--space-4);">
         <p class="text-caption text-primary" style="text-align: center; letter-spacing: 0.15em; margin-bottom: var(--space-4); margin-top: 0;">HOW TO READ THIS REPORT</p>
         <p class="text-body-sm text-muted" style="line-height: 1.8; font-style: italic; text-align: center; max-width: 650px; margin: 0 auto;">
           Astrology and numerology are symbolic tools for self-reflection and entertainment. This application uses simplified astronomical estimates and an equal-house system. Professional astrology software should be used for exact geocoded ephemerides.
@@ -217,7 +217,7 @@ function renderReport(report) {
       </section>
 
       <!-- FOOTER ACTIONS -->
-      <div class="no-print" style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-6); padding-bottom: var(--space-12);">
+      <div class="no-print hero-container" style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-6); padding-bottom: var(--space-12);">
         <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: var(--space-4);">
           <button onclick="tryPrintKeepsake()" class="btn btn-ghost text-caption hover-spring focus-halo" style="letter-spacing: 0.1em; color: var(--color-text-primary);" aria-label="Print or save as PDF">
             [ PRINT KEEPSAKE ]

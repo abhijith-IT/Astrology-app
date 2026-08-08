@@ -16,35 +16,73 @@ const latInput = document.querySelector("#latitude");
 const lonInput = document.querySelector("#longitude");
 const tzInput = document.querySelector("#timezone");
 
-function readForm() {
-  const [year, month, day] = birthDateInput.value.split("-").map(Number);
-  const [hour, minute] = birthTimeInput.value.split(":").map(Number);
-  const hasLatitude = latInput.value.trim() !== "";
-  const hasLongitude = lonInput.value.trim() !== "";
-  const latitude = hasLatitude ? Number(latInput.value) : fallbackCoordinate(placeInput.value, "lat");
-  const longitude = hasLongitude ? Number(lonInput.value) : fallbackCoordinate(placeInput.value, "lon");
-
-  return {
-    fullName: fullNameInput.value.trim(),
-    year,
-    month,
-    day,
-    hour,
-    minute,
-    place: placeInput.value.trim(),
-    latitude,
-    longitude,
-    timezone: tzInput.value.trim() === "" ? 0 : Number(tzInput.value),
-    coordinatesEstimated: !hasLatitude || !hasLongitude
-  };
+function clearErrors() {
+  document.querySelectorAll('.form-group').forEach(el => el.classList.remove('has-error'));
+  document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
 }
 
-function fallbackCoordinate(place, axis) {
-  const seed = [...place.toLowerCase()].reduce((total, char) => total + char.charCodeAt(0), 0);
-  if (axis === "lat") {
-    return ((seed % 12000) / 100) - 60;
+function showError(inputId, message) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const group = input.closest('.form-group');
+  if (group) group.classList.add('has-error');
+  const errorDiv = document.getElementById(inputId + 'Error');
+  if (errorDiv) errorDiv.textContent = message;
+}
+
+function validateForm() {
+  clearErrors();
+  let isValid = true;
+  
+  const fullName = fullNameInput.value.trim();
+  if (!fullName) {
+    showError('fullName', 'Enter your full name to continue.');
+    isValid = false;
   }
-  return ((seed * 17) % 36000) / 100 - 180;
+  
+  const dateVal = birthDateInput.value;
+  if (!dateVal) {
+    showError('birthDate', 'Enter your birth date to continue.');
+    isValid = false;
+  }
+  
+  const timeVal = birthTimeInput.value;
+  if (!timeVal) {
+    showError('birthTime', 'Enter your birth time to calculate the ascendant accurately.');
+    isValid = false;
+  }
+  
+  const place = placeInput.value.trim();
+  if (!place) {
+    showError('birthPlace', 'Enter your city of birth.');
+    isValid = false;
+  }
+  
+  const hasLatitude = latInput.value.trim() !== "";
+  const hasLongitude = lonInput.value.trim() !== "";
+  
+  if (place && (!hasLatitude || !hasLongitude)) {
+    // Check if it matches a preset since we don't have coordinates
+    const preset = cityPresets.find((city) => city[0].toLowerCase() === place.toLowerCase());
+    if (!preset) {
+      showError('birthPlace', 'Choose a recognized birthplace so the coordinates can be resolved.');
+      isValid = false;
+    }
+  }
+
+  if (!isValid) return null;
+
+  const [year, month, day] = dateVal.split("-").map(Number);
+  const [hour, minute] = timeVal.split(":").map(Number);
+  const preset = cityPresets.find((city) => city[0].toLowerCase() === place.toLowerCase());
+  const latitude = hasLatitude ? Number(latInput.value) : preset[1];
+  const longitude = hasLongitude ? Number(lonInput.value) : preset[2];
+  const timezone = tzInput.value.trim() === "" ? 0 : Number(tzInput.value);
+
+  return {
+    fullName, year, month, day, hour, minute, place, latitude, longitude, timezone,
+    coordinatesEstimated: !hasLatitude || !hasLongitude
+  };
 }
 
 function fillCityPreset(place) {
@@ -127,17 +165,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const retryBtn = document.getElementById("retryBtn");
+  const returnBtn = document.getElementById("returnBtn");
+  const errorState = document.getElementById("globalErrorState");
+
+  if (returnBtn) {
+    returnBtn.addEventListener("click", () => {
+      if (errorState) errorState.style.display = 'none';
+      if (form) form.style.display = 'block';
+    });
+  }
+
+  if (retryBtn) {
+    retryBtn.addEventListener("click", () => {
+      if (errorState) errorState.style.display = 'none';
+      if (form) {
+        form.style.display = 'block';
+        form.requestSubmit();
+      }
+    });
+  }
+
   if (form) {
+    // Intercept native invalid events to prevent browser popups and show custom inline errors
+    form.addEventListener('invalid', (event) => {
+      event.preventDefault();
+      validateForm(); // Show custom errors
+    }, true);
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const data = readForm();
-      const report = buildReport(data);
       
-      // Store report data in sessionStorage
-      sessionStorage.setItem('astroReport', JSON.stringify(report));
+      const data = validateForm();
+      if (!data) return; // Validation failed
       
-      // Redirect to result page
-      window.location.href = 'result.html';
+      try {
+        const report = buildReport(data);
+        // Store report data in sessionStorage
+        sessionStorage.setItem('astroReport', JSON.stringify(report));
+        // Redirect to result page
+        window.location.href = 'result.html';
+      } catch (err) {
+        console.error("Calculation exception:", err);
+        if (form) form.style.display = 'none';
+        if (errorState) {
+          errorState.style.display = 'block';
+          const msg = document.getElementById('globalErrorMessage');
+          if (msg) msg.textContent = "An error occurred during celestial calculations: " + (err.message || "Invalid input parameters.");
+        }
+      }
     });
   }
 });

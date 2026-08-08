@@ -72,39 +72,46 @@
 
         <div class="form-group">
           <label class="form-label" for="fullName">Full Name</label>
-          <input class="form-input focus-halo" id="fullName" name="fullName" type="text" placeholder="e.g. Ananya Sharma" autocomplete="name" required>
+          <input class="form-input focus-halo" id="fullName" name="fullName" type="text" placeholder="e.g. Ananya Sharma" autocomplete="name" required aria-describedby="fullNameError">
+          <div id="fullNameError" class="form-error" aria-live="polite"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div class="form-group mb-0">
             <label class="form-label" for="birthDate">Date of Birth</label>
-            <input class="form-input focus-halo" id="birthDate" name="birthDate" type="date" required>
+            <input class="form-input focus-halo" id="birthDate" name="birthDate" type="date" required aria-describedby="birthDateError">
+            <div id="birthDateError" class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group mb-0">
             <label class="form-label" for="birthTime">Time of Birth</label>
-            <input class="form-input focus-halo" id="birthTime" name="birthTime" type="time" required>
+            <input class="form-input focus-halo" id="birthTime" name="birthTime" type="time" required aria-describedby="birthTimeError">
+            <div id="birthTimeError" class="form-error" aria-live="polite"></div>
           </div>
         </div>
 
         <div class="form-group mb-6">
           <label class="form-label" for="birthPlace">Place of Birth</label>
-          <input class="form-input focus-halo" id="birthPlace" name="birthPlace" type="text" list="cityList" placeholder="e.g. Delhi, India" required>
+          <input class="form-input focus-halo" id="birthPlace" name="birthPlace" type="text" list="cityList" placeholder="e.g. Delhi, India" required aria-describedby="birthPlaceError">
           <datalist id="cityList"></datalist>
+          <div id="birthPlaceError" class="form-error" aria-live="polite"></div>
         </div>
 
         <!-- Coordinates - utilizing the new mono data font -->
         <div class="grid grid-cols-3 gap-4 mb-8 p-4 rounded" style="background-color: rgba(0,0,0,0.2); border: 1px solid var(--color-border-subtle);">
           <div class="form-group mb-0">
             <label class="form-label text-caption" for="latitude">Latitude</label>
-            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="latitude" name="latitude" type="number" step="0.0001" min="-66" max="66" placeholder="28.6139">
+            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="latitude" name="latitude" type="number" step="0.0001" min="-66" max="66" placeholder="28.6139" aria-describedby="latitudeError">
+            <div id="latitudeError" class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group mb-0">
             <label class="form-label text-caption" for="longitude">Longitude</label>
-            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="longitude" name="longitude" type="number" step="0.0001" min="-180" max="180" placeholder="77.2090">
+            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="longitude" name="longitude" type="number" step="0.0001" min="-180" max="180" placeholder="77.2090" aria-describedby="longitudeError">
+            <div id="longitudeError" class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group mb-0">
             <label class="form-label text-caption" for="timezone">UTC Offset</label>
-            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="timezone" name="timezone" type="number" step="0.25" min="-12" max="14" value="5.5">
+            <input class="form-input text-mono focus-halo" style="padding: var(--space-2);" id="timezone" name="timezone" type="number" step="0.25" min="-12" max="14" value="5.5" aria-describedby="timezoneError">
+            <div id="timezoneError" class="form-error" aria-live="polite"></div>
           </div>
         </div>
 
@@ -118,6 +125,23 @@
           </button>
         </div>
       </form>
+
+      <!-- Global Error State (Hidden by default) -->
+      <div id="globalErrorState" class="card card-glass" style="max-width: 640px; width: 100%; display: none; text-align: center; padding: var(--space-8);">
+        <div style="display: flex; justify-content: center; margin-bottom: var(--space-6);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h2 class="text-h3 font-serif mb-4">Your blueprint couldn't be generated.</h2>
+        <p id="globalErrorMessage" class="text-body text-secondary mb-8">An error occurred during celestial calculations. Please verify your details and try again.</p>
+        <div class="flex gap-4 justify-center">
+          <button type="button" id="retryBtn" class="btn btn-primary hover-spring" style="min-width: 160px;">Try Again</button>
+          <button type="button" id="returnBtn" class="btn btn-secondary hover-spring" style="min-width: 160px;">Return to Details</button>
+        </div>
+      </div>
     </section>
   </main>
 

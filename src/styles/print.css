@@ -1,135 +1,202 @@
 /* ==========================================================================
-   Print Styles (Phase 6: The Keepsake)
+   Print Styles (Phase 6: The Keepsake -> Sprint 4: Perfection)
    ========================================================================== */
 
 @media print {
-  /* 1. Fix Opacity & Animation Freeze Bug (Targeted) */
+  /* 1. Fix Opacity & Animation Freeze Bug */
+  *, 
+  *::before, 
+  *::after,
   main,
   .report-container,
   .editorial-container,
-  .animate-fade-in {
+  .animate-fade-in,
+  .animate-slide-up,
+  .stagger-in {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
 
-  /* 2. Fix CSS Variable Colors (White-on-White bug) */
+  /* 2. Premium Print Color System */
   :root {
-    --color-text-primary: #000000 !important;
-    --color-text-secondary: #333333 !important;
-    --color-text-muted: #666666 !important;
-    --color-primary: #000000 !important;
-    --color-bg-base: #FFFFFF !important;
-    --color-border-strong: #cccccc !important;
-    --color-border-subtle: #eeeeee !important;
+    --color-bg-base: #FCFBF9 !important; /* Warm white paper background */
+    --color-text-primary: #1A1A1A !important; /* Near-black primary text */
+    --color-text-secondary: #4A4F55 !important; /* Dark slate secondary text */
+    --color-text-muted: #6B7280 !important; /* Muted text */
+    --color-primary: #B89855 !important; /* Restrained muted gold accent */
+    --color-border-strong: #D1D5DB !important; /* Light gray border */
+    --color-border-subtle: #E5E7EB !important; /* Very light gray */
+    
+    /* Ensure typography scales better for paper */
+    --text-body: 10pt;
+    --text-body-sm: 9pt;
+    --text-caption: 8pt;
   }
 
-  /* Hide UI elements and backgrounds */
-  canvas,
-  .btn,
-  .planet-panel,
-  .planet-panel-overlay,
-  .loading-engine,
-  header,
-  footer {
-    display: none !important;
-  }
-
-  /* Reset body for physical paper */
+  /* 3. Base Reset for Physical Paper */
   body, 
+  html,
   .bg-grain {
-    background: white !important;
-    color: black !important;
+    background: var(--color-bg-base) !important;
+    color: var(--color-text-primary) !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Remove Glassmorphism */
+  /* Target specific elements that must be hidden */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  /* 4. Remove UI Effects (Glassmorphism, Shadows, Gradients) */
   .card,
   .card-glass,
   .card-feature,
-  .card-metric {
+  .card-metric,
+  .recommendation-box {
     background: transparent !important;
-    border: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    padding: 0 !important;
-    margin-bottom: 2rem !important;
+  }
+  
+  .recommendation-box {
+    border: 1px solid var(--color-border-strong) !important;
+    padding: 1.5rem !important;
   }
 
-  /* Typography Inversion */
-  .text-primary,
-  .text-secondary,
-  .text-muted,
-  .text-display,
-  .text-h1,
-  .text-h2,
-  .text-h3,
-  .text-h4,
-  .text-body,
-  .text-body-sm,
-  .text-caption,
-  .text-mono {
-    color: black !important;
-    text-shadow: none !important;
+  /* 5. Typography specifically optimized for print */
+  body {
+    line-height: 1.6 !important;
   }
 
-  /* Structural Adjustments */
-  .container {
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cinzel', serif, 'Times New Roman', Times !important;
+    color: var(--color-text-primary) !important;
+  }
+
+  p, span, div, .text-body, .text-body-sm {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    color: var(--color-text-secondary) !important;
+    font-weight: 400 !important;
+  }
+  
+  /* Ensure bold is actually bold but not too heavy on ink */
+  strong, b {
+    font-weight: 600 !important;
+    color: var(--color-text-primary) !important;
+  }
+
+  .text-caption {
+    color: var(--color-text-muted) !important;
+    font-weight: 500 !important;
+  }
+
+  .text-mono, .ledger-value {
+    font-family: 'JetBrains Mono', 'Courier New', Courier, monospace !important;
+  }
+
+  /* 6. Structural Adjustments */
+  .container, .editorial-container {
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
 
-  .grid {
-    display: block !important;
-  }
-
-  .grid > * {
-    margin-bottom: 1.5rem !important;
-    page-break-inside: avoid;
-  }
-
-  /* Layout tweaks for printed metrics */
-  .card-metric {
-    border-left: 2px solid black !important;
-    padding-left: 1rem !important;
-    border-radius: 0 !important;
-  }
-
-  /* Planets in Houses */
-  .planet-row,
-  .flex.items-center.p-inset-squish {
-    border: none !important;
-    border-bottom: 1px solid #ccc !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    page-break-inside: avoid;
-    padding: 1rem 0 !important;
-  }
-
-  .card-icon {
-    border: none !important;
-    background: transparent !important;
-    color: black !important;
-  }
-
-  /* Print specific utilities */
+  /* 7. Page Layout & Margins */
   @page {
-    margin: 2cm;
     size: A4 portrait;
+    margin: 18mm 16mm;
   }
 
-  h2, h3, h4 {
+  /* 8. Page Breaks (Preventing awkward fragmentation) */
+  h1, h2, h3, h4, .chapter-header, .chapter-number, .chapter-title {
     page-break-after: avoid;
+    break-after: avoid;
   }
 
-  p {
+  p, li {
     page-break-inside: avoid;
+    break-inside: avoid;
     orphans: 3;
     widows: 3;
+  }
+  
+  section {
+    /* Allow natural breaks, but keep cohesive sections together if possible */
+    page-break-inside: auto;
+  }
+
+  .chapter-divider {
+    page-break-before: always;
+    break-before: page;
+    margin-top: 0 !important;
+    border: none !important;
+  }
+  
+  .recommendation-box, 
+  .metrics-row,
+  .ledger-list {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 9. Astrology Chart Centerpiece */
+  #interactiveChartContainer,
+  .animate-fade-in.stagger-in[style*="aspect-ratio"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    max-width: 17cm !important; /* Ensure it fits on A4 width */
+    max-height: 17cm !important; /* Ensure it fits on A4 height */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: relative !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+  
+  #interactiveChartContainer svg {
+    /* Force crisp rendering and no clipping */
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* 10. Ledger / List adjustments */
+  .ledger-row,
+  .flex.items-center.p-inset-squish {
+    border: none !important;
+    border-bottom: 1px solid var(--color-border-subtle) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    padding: 0.75rem 0 !important;
+  }
+  
+  /* 11. Restrained Print Footer (CSS based) */
+  /* Target the print footer container injected via JS */
+  .print-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 8pt;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    padding-bottom: 5mm;
+    background: transparent;
+    border-top: none;
+    z-index: 50; /* Ensure it stays above background but below text if they overlap slightly */
   }
 }

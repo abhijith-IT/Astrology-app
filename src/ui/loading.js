@@ -23,6 +23,19 @@ export function runLoadingSequence(onComplete) {
     </div>
   `;
 
+  // Timeout safeguard for stuck loading states
+  const safeguardTimeout = setTimeout(() => {
+    if (loadingEngine && !loadingEngine.classList.contains('is-complete')) {
+      engineStepsContainer.innerHTML = `
+        <div class="flex flex-col items-center justify-center animate-fade-in" style="height: 100vh; text-align: center;">
+          <p class="text-caption text-secondary mb-4" style="letter-spacing: 0.1em; color: var(--color-text-secondary);">PROCESSING TAKING LONGER THAN EXPECTED</p>
+          <p class="text-body text-secondary mb-6" style="max-width: 400px; line-height: 1.6;">Your calculations are still running, but you can return to the form if you prefer.</p>
+          <a href="index.html" class="btn btn-secondary hover-spring" style="text-decoration: none;">Return to Details</a>
+        </div>
+      `;
+    }
+  }, 10000);
+
   const stepText = document.getElementById('dynamicStepText');
   
   let currentProgress = 0;
@@ -54,6 +67,7 @@ export function runLoadingSequence(onComplete) {
       
       // Fade out loading, fade in report — using CSS classes
       setTimeout(() => {
+        clearTimeout(safeguardTimeout);
         if (loadingEngine) {
           loadingEngine.classList.add('is-complete');
         }

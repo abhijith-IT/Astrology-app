@@ -57,13 +57,13 @@ export function renderInteractiveChart(container, report, options = {}) {
   const svg = document.createElementNS(SVG_NS, "svg");
   svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
   svg.setAttribute("class", "interactive-chart-svg");
-  svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", "Astrological birth chart");
+  svg.setAttribute("role", "group");
+  svg.setAttribute("aria-label", `Interactive natal astrology chart for ${report.fullName || "User"}, showing planetary positions, houses, and zodiac placements.`);
   svg.setAttribute("shape-rendering", "geometricPrecision");
   svg.setAttribute("text-rendering", "optimizeLegibility");
   
   const title = document.createElementNS(SVG_NS, "title");
-  title.textContent = `Astrological Chart for ${report.fullName || "User"}`;
+  title.textContent = `Interactive natal astrology chart for ${report.fullName || "User"}, showing planetary positions, houses, and zodiac placements.`;
   svg.appendChild(title);
   
   const desc = document.createElementNS(SVG_NS, "desc");
@@ -223,6 +223,10 @@ export function renderInteractiveChart(container, report, options = {}) {
     hitArea.setAttribute("r", 22);
     hitArea.setAttribute("fill", "transparent");
 
+    const pTitle = document.createElementNS(SVG_NS, "title");
+    pTitle.textContent = `${planet.name} in ${planet.sign.name}, House ${planet.house}`;
+
+    g.appendChild(pTitle);
     g.appendChild(bg);
     g.appendChild(icon);
     g.appendChild(hitArea);

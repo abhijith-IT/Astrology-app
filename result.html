@@ -20,11 +20,11 @@
 </head>
 <body class="bg-grain" style="margin: 0; padding: 0; overflow-x: hidden;">
   <!-- Sky Canvas for ambient background (z-index -1) -->
-  <canvas id="cosmicBg" aria-hidden="true" style="position: fixed; inset: 0; z-index: -1; width: 100vw; height: 100vh; pointer-events: none; opacity: 0.15;"></canvas>
+  <canvas id="cosmicBg" aria-hidden="true" class="no-print" style="position: fixed; inset: 0; z-index: -1; width: 100vw; height: 100vh; pointer-events: none; opacity: 0.15;"></canvas>
 
   <main class="container flow-section animate-fade-in" style="min-height: 100vh; display: flex; flex-direction: column;">
     <!-- Phase 4: The Threshold (Loading Engine) -->
-    <div id="loadingEngine" class="loading-engine flex-col items-center justify-center text-center" style="position: fixed; inset: 0; background: var(--color-bg-base); z-index: 50; display: flex;">
+    <div id="loadingEngine" class="loading-engine no-print flex-col items-center justify-center text-center" style="position: fixed; inset: 0; background: var(--color-bg-base); z-index: 50; display: flex;">
       <div id="engineSteps" style="max-width: 400px; width: 100%;">
         <!-- Dynamic loading text injected by loading.js -->
       </div>
@@ -37,8 +37,8 @@
   </main>
 
   <!-- Interactive Side Panel — Editorial Language -->
-  <div class="planet-panel-overlay" id="planetPanelOverlay"></div>
-  <aside id="planetPanel" aria-hidden="true" style="
+  <div class="planet-panel-overlay no-print" id="planetPanelOverlay"></div>
+  <aside id="planetPanel" aria-hidden="true" class="no-print" style="
     display: none;
     position: fixed;
     right: 0;

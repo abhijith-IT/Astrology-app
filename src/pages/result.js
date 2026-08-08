@@ -11,7 +11,7 @@ function renderReport(report) {
   // Create report HTML
   // Editorial Magazine Layout
   const reportHTML = `
-    <a href="#chapter-1-title" class="sr-only focus:not-sr-only skip-link">Skip to report</a>
+    <a href="#chapter-1-title" class="sr-only focus:not-sr-only skip-link no-print">Skip to report</a>
     <main class="editorial-container" style="width: 100%;">
       
       <!-- HERO VIEWPORT (Sprint 2: Majestic Linear Flow) -->
@@ -72,7 +72,7 @@ function renderReport(report) {
         </div>
         
         <!-- READING JOURNEY INDICATOR -->
-        <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-wrap: wrap; opacity: 0.8;">
+        <div class="no-print" style="display: flex; align-items: center; justify-content: center; gap: var(--space-4); flex-wrap: wrap; opacity: 0.8;">
           <span class="text-caption" style="color: var(--color-text-primary); letter-spacing: 0.1em;">Essence</span>
           <span class="text-muted" style="font-size: 0.8rem;">→</span>
           <span class="text-caption text-secondary" style="letter-spacing: 0.1em;">Numbers</span>
@@ -217,15 +217,21 @@ function renderReport(report) {
       </section>
 
       <!-- FOOTER ACTIONS -->
-      <div style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-6); padding-bottom: var(--space-12);">
-        <div class="flex justify-between items-center">
-          <button onclick="window.print()" class="btn btn-ghost text-caption hover-spring focus-halo" style="letter-spacing: 0.1em; color: var(--color-text-primary);" aria-label="Print or save as PDF">
+      <div class="no-print" style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-6); padding-bottom: var(--space-12);">
+        <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: var(--space-4);">
+          <button onclick="tryPrintKeepsake()" class="btn btn-ghost text-caption hover-spring focus-halo" style="letter-spacing: 0.1em; color: var(--color-text-primary);" aria-label="Print or save as PDF">
             [ PRINT KEEPSAKE ]
           </button>
           <a href="index.html" class="btn btn-ghost text-caption hover-spring focus-halo" style="letter-spacing: 0.1em; color: var(--color-text-secondary); text-decoration: none;" aria-label="Start a new reading">
             [ NEW READING ]
           </a>
         </div>
+        <div id="printErrorContainer" class="form-error" aria-live="polite" style="text-align: left; width: 100%; margin-top: 8px;"></div>
+      </div>
+      
+      <!-- PRINT-ONLY REPEATING FOOTER -->
+      <div class="print-only print-footer" aria-hidden="true" style="display: none;">
+        COSMIC BLUEPRINT
       </div>
     </main>
   `;
@@ -246,6 +252,31 @@ function renderReport(report) {
     observer.observe(el);
   });
 }
+
+window.tryPrintKeepsake = function() {
+  const errorContainer = document.getElementById('printErrorContainer');
+  if (errorContainer) {
+    errorContainer.innerHTML = "";
+    errorContainer.closest('.form-group')?.classList.remove('has-error');
+  }
+  
+  try {
+    const printed = window.print();
+    // Some browsers return boolean from print, most return undefined, but if it throws we catch it.
+  } catch (err) {
+    console.error("Print generation failed:", err);
+    if (errorContainer) {
+      errorContainer.closest('.no-print')?.classList.add('has-error');
+      errorContainer.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.05); padding: var(--space-3); border-radius: var(--radius-sm); border-left: 2px solid var(--color-danger);">
+          <span>Unable to generate PDF/print. Please check your browser settings.</span>
+          <button onclick="tryPrintKeepsake()" class="btn btn-secondary hover-spring" style="padding: var(--space-2) var(--space-4); min-height: auto;">Try Again</button>
+        </div>
+      `;
+      errorContainer.style.opacity = "1";
+    }
+  }
+};
 
 // Get report data from sessionStorage
 function getReportData() {
@@ -311,18 +342,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (err) {
         console.error("Failed to load interactive chart:", err);
+        const chartContainer = document.getElementById('interactiveChartContainer');
+        if (chartContainer) {
+          chartContainer.innerHTML = `
+            <div style="display: flex; height: 100%; align-items: center; justify-content: center; text-align: center; border: 1px dashed var(--color-border-strong); padding: var(--space-4);">
+              <p class="text-caption text-secondary" style="letter-spacing: 0.1em; color: var(--color-text-muted);">CHART RENDERING UNAVAILABLE</p>
+            </div>
+          `;
+        }
       }
     });
   } else {
-    // Show error if no data
+    // Show error if no data using editorial fallback
     const container = document.querySelector("#reportContainer");
     if (container) {
       container.innerHTML = `
-        <div class="empty-state panel">
-          <div class="empty-visual">⚠️</div>
-          <h2>No Report Data Found</h2>
-          <p>Please fill out the form on the <a href="index.html">main page</a> to generate your birth blueprint.</p>
-        </div>
+        <main class="editorial-container" style="width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <h1 class="font-serif" style="font-size: clamp(2rem, 5vw, 3rem); letter-spacing: 0.15em; color: var(--color-primary); margin-bottom: var(--space-6);">Blueprint Unavailable</h1>
+          <p class="text-body text-secondary" style="max-width: 500px; margin-bottom: var(--space-8); line-height: 1.8;">
+            Your celestial coordinates and numerological alignments could not be located in this session.
+          </p>
+          <a href="index.html" class="btn btn-secondary hover-spring" style="text-decoration: none;">Return to Origin</a>
+        </main>
       `;
     }
   }

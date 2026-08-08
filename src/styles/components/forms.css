@@ -99,6 +99,21 @@
 .has-error .form-message { color: var(--color-danger); }
 .has-success .form-message { color: var(--color-success); }
 
+/* Semantic inline form errors */
+.form-error {
+  min-height: 1.25rem; /* Reserve space to prevent layout jump */
+  margin-top: 4px;
+  font-size: var(--text-caption);
+  color: var(--color-danger);
+  line-height: 1.2;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  opacity: 0;
+}
+
+.has-error .form-error {
+  opacity: 1;
+}
+
 /* Select specific */
 .form-select {
   appearance: none;
